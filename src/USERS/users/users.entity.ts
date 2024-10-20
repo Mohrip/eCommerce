@@ -17,9 +17,6 @@ export class User {
     @Column()
     role: string
 
-    // Add more columns as needed teeesssttt
 
-    // Add relationships with other entities if necessary
 
-    // Add any additional methods or decorators as needed
 }
