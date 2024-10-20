@@ -14,6 +14,9 @@ export class User {
     @Column()
     password: string;
 
+    @Column()
+    role: string
+
     // Add more columns as needed teeesssttt
 
     // Add relationships with other entities if necessary
