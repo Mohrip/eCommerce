@@ -8,7 +8,7 @@ export class User {
     @Column()
     name: string;
 
-    @Column()
+    @Column( {unique: true} )
     email: string;
 
     @Column()
@@ -16,6 +16,9 @@ export class User {
 
     @Column()
     role: string
+
+    @Column({ default: '' })
+    profile: string
 
 
 
