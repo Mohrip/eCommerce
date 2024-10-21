@@ -2,6 +2,12 @@
 /dist
 /node_modules
 /build
+/.dist
+/.env
+/.serverless
+/.esbuild
+/.dynamodb
+*.tmp.ts
 
 # Logs
 logs
