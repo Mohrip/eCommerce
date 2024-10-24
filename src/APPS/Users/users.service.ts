@@ -5,14 +5,12 @@ import { User } from './users.entity';
 import { CreateUserDto } from './createUser.dto';
 import { UpdateUserDto } from './updateUser.dto';
 import * as bcrypt from 'bcrypt';
-import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
-    private jwtService: JwtService,
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -36,13 +34,12 @@ export class UsersService {
     await this.usersRepository.delete(id);
   }
 
-  async login(email: string, password: string): Promise<{ accessToken: string }> {
+  async login(email: string, password: string): Promise<{ payload: any }> {
     const user = await this.findOneByEmail(email);
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');
     }
     const payload = { email: user.email, sub: user.id };
-    const accessToken = this.jwtService.sign(payload);
-    return { accessToken };
+    return { payload };
   }
 }
