@@ -2,7 +2,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from '../APPS/Users/users.module';
-import { AuthModule } from '../../src/APPS/AUTH/auth/auth.module';
+import { AuthModule } from '../APPS/AUTH/auth/auth.module';
 import { User } from './Users/users.entity';
 
 @Module({
