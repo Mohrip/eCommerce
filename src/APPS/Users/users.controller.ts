@@ -1,18 +1,13 @@
-import { Controller, Post, Body, Get, Param, Patch, Delete, UseGuards, Req } from '@nestjs/common';
-import { UsersService } from '../Users/users.service';
+import { Controller, Post, Body, Get, Patch, Delete, UseGuards, Req } from '@nestjs/common';
+import { UsersService } from './users.service';
 import { CreateUserDto } from './createUser.dto';
 import { UpdateUserDto } from './updateUser.dto';
-
-import { JwtAuthGuard } from '../AUTH/auth/jwt.guard';
 import { Request } from 'express';
-import { AuthService } from '../AUTH/auth/auth.service';
-
 
 @Controller('users')
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
-    private readonly authService: AuthService,
   ) {}
 
   @Post('register')
@@ -21,17 +16,16 @@ export class UsersController {
   }
 
   @Post('login')
-  async login(@Body() body: { email: string; password: string }) {
-    return this.authService.login(body.email, body.password);
+  async login(@Body() body: { email: string; password: string; }) {
+    return this.usersService.login(body.email, body.password);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards()
   @Get('profile')
   async getProfile(@Req() req: Request) {
     return req.user;
   }
 
-  @UseGuards(JwtAuthGuard)
   @Patch('profile')
   async updateProfile(@Req() req: Request, @Body() updateUserDto: UpdateUserDto) {
     const user = req.user;
@@ -39,7 +33,6 @@ export class UsersController {
     return this.usersService.findOneByEmail(user.email);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Delete('profile')
   async deleteProfile(@Req() req: Request) {
     const user = req.user;
