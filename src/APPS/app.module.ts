@@ -10,6 +10,9 @@ import { Category } from '../APPS/Product/category.entity';
 import { OrdersModule } from './orders/orders.module';
 import { Order  } from '../APPS/Orders/order.entity';
 import {  OrderItem } from '../APPS/Orders/order.entity';
+import { Cart } from '../cart/cart.entity';
+import { CartItem } from '../cart/cart.entity';
+
 
 
 @Module({
@@ -17,8 +20,8 @@ import {  OrderItem } from '../APPS/Orders/order.entity';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'data.db',
-      entities: [User, Product, Category, Order, OrderItem],
-      synchronize: true,
+      entities: [User, Product, Category, Order, OrderItem, Cart, CartItem],
+      synchronize: false,
     }),
     UsersModule,
     ProductModule,

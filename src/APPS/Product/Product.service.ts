@@ -3,12 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from './product.entity';
 import { Category } from './category.entity';
-import { CreateProductDto  } from '../Product/create-product.dto';
-import {  UpdateProductDto } from '../Product/update-product.dto';
-
-import { CreateCategoryDto  } from '../Product/create-category.dto';
-import {  UpdateCategoryDto } from '../Product/update-category.dto';
-
+import { CreateProductDto } from '../Product/create-product.dto';
+import { UpdateProductDto } from '../Product/update-product.dto';
+import { CreateCategoryDto } from '../Product/create-category.dto';
+import { UpdateCategoryDto } from '../Product/update-category.dto';
 
 @Injectable()
 export class ProductsService {
@@ -21,7 +19,7 @@ export class ProductsService {
 
   async createProduct(createProductDto: CreateProductDto): Promise<Product> {
     const { categoryId, ...rest } = createProductDto;
-    const category = await this.categoriesRepository.findOne(categoryId);
+    const category = await this.categoriesRepository.findOne({ where: { id: categoryId } });
     if (!category) {
       throw new NotFoundException('Category not found');
     }
@@ -34,7 +32,7 @@ export class ProductsService {
   }
 
   async findProductById(id: number): Promise<Product> {
-    const product = await this.productsRepository.findOne(id, { relations: ['category'] });
+    const product = await this.productsRepository.findOne({ where: { id }, relations: ['category'] });
     if (!product) {
       throw new NotFoundException('Product not found');
     }
@@ -45,7 +43,7 @@ export class ProductsService {
     const product = await this.findProductById(id);
     const { categoryId, ...rest } = updateProductDto;
     if (categoryId) {
-      const category = await this.categoriesRepository.findOne(categoryId);
+      const category = await this.categoriesRepository.findOne({ where: { id: categoryId } });
       if (!category) {
         throw new NotFoundException('Category not found');
       }
@@ -70,7 +68,7 @@ export class ProductsService {
   }
 
   async findCategoryById(id: number): Promise<Category> {
-    const category = await this.categoriesRepository.findOne(id, { relations: ['products'] });
+    const category = await this.categoriesRepository.findOne({ where: { id }, relations: ['products'] });
     if (!category) {
       throw new NotFoundException('Category not found');
     }

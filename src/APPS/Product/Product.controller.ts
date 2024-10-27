@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Body, Param, Patch, Delete } from '@nestjs/common';
-import { ProductsService } from '../Product/Product.service';
-import { CreateProductDto  } from '../Product/create-product.dto';
-import {  UpdateProductDto } from '../Product/update-product.dto';
+import { ProductsService } from './product.service'; // Ensure this path is correct
+import { CreateProductDto } from './create-product.dto';
+import { UpdateProductDto } from './update-product.dto';
+import { CreateCategoryDto } from './create-category.dto';
+import { UpdateCategoryDto } from './update-category.dto';
 
-import { CreateCategoryDto  } from '../Product/create-category.dto';
-import {  UpdateCategoryDto } from '../Product/update-category.dto';
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
