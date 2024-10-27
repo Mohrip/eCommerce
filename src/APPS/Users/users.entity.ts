@@ -20,6 +20,9 @@ export class User {
     @Column({ default: '' })
     profile: string
 
+    @Column()
+    orders: string;
+
 
 
 }
