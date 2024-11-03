@@ -37,7 +37,7 @@ export class ReviewsService {
     if (!review) {
       throw new NotFoundException('Review not found');
     }
-
+// this is the updateReviewDto:
     review.rating = updateReviewDto.rating;
     review.comment = updateReviewDto.comment;
     return this.reviewsRepository.save(review);
