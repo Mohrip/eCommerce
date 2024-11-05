@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Cart } from '../../cart/cart.entity';
+import { Cart } from '../cart/cart.entity';
 import { Review } from '../reviews/review.entity';
+import { Wishlist } from '../wishlist/wishlist.entity'; // Import Wishlist entity
 
 @Entity()
 export class User {
@@ -10,17 +11,17 @@ export class User {
     @Column()
     name: string;
 
-    @Column( {unique: true} )
+    @Column({ unique: true })
     email: string;
 
     @Column()
     password: string;
 
     @Column()
-    role: string
+    role: string;
 
     @Column({ default: '' })
-    profile: string
+    profile: string;
 
     @Column()
     orders: string;
@@ -30,5 +31,7 @@ export class User {
 
     @OneToMany(() => Review, review => review.user)
     reviews: Review[];
-}
 
+    @OneToMany(() => Wishlist, wishlist => wishlist.user) // Add this line
+    wishlist: Wishlist[]; // Add this line
+}

@@ -5,8 +5,8 @@ import { Cart, CartItem } from './cart.entity';
 import { CreateCartItemDto  } from '../cart/create-cart-item.dto';
 import {  UpdateCartItemDto } from '../cart/update-cart-item.dto';
 
-import { UsersService } from '../APPS/Users/users.service';
-import { ProductsService } from '../APPS/Product/Product.service';
+import { UsersService } from '../Users/users.service';
+import { ProductsService } from '../Product/Product.service';
 
 @Injectable()
 export class CartService {
