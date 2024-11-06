@@ -1,3 +1,4 @@
+// src/APPS/Product/product.controller.ts
 import { Controller, Get, Post, Body, Param, Patch, Delete } from '@nestjs/common';
 import { ProductsService } from './product.service'; // Ensure this path is correct
 import { CreateProductDto } from './create-product.dto';
