@@ -11,7 +11,7 @@ export class Order {
   user: User;
 
   @Column()
-  status: string; // 'placed', 'shipped', 'delivered', 'cancelled', 'returned'
+  status: string; 
 
   @Column('decimal')
   total: number;
