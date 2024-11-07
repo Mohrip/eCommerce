@@ -3,6 +3,10 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './createUser.dto';
 import { UpdateUserDto } from './updateUser.dto';
 import { Request } from 'express';
+// import { Roles } from '../auth/roles.decorator';
+// import { Role } from '../auth/role.enum';
+// import { RolesGuard } from '../auth/roles.guard';
+
 
 @Controller('users')
 export class UsersController {
@@ -38,4 +42,25 @@ export class UsersController {
     const user = req.user;
     await this.usersService.remove(user.id);
   }
-}
+
+
+
+    // // Admin operations
+    // @Get()
+    // @Roles(Role.Admin)
+    // findAll() {
+    //   return this.usersService.findAll();
+    // }
+  
+    // @Get(':id')
+    // @Roles(Role.Admin)
+    // findOne(@Param('id') id: number) {
+    //   return this.usersService.findOneById(id);
+    // }
+  
+    // @Delete(':id')
+    // @Roles(Role.Admin)
+    // remove(@Param('id') id: number) {
+    //   return this.usersService.remove(id);
+    // }
+  }
