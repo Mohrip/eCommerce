@@ -42,6 +42,27 @@ export class WishlistService {
     return this.wishlistRepository.find({ where: { user: { id: userId } }, relations: ['product'] });
   }
 
+  async fetchwishlistItem(userId: number, productId: number): Promise<void> {
+    const fetch = this.wishlistRepository.findOne({ where: { user: { id: userId }, product: { id: productId } } });
+    const fetched = await fetch;
+    if (!fetched) {
+      throw new NotFoundException('Wishlist item not found');
+    }
+  }
+
+  async getAllWishlistItems(): Promise<Wishlist[]> {
+    return this.wishlistRepository.find({ relations: ['user', 'product'] });
+  }
+
+  async processWishlistItem(): Promise<void> {
+    const allItems = await this.getAllWishlistItems();
+  allItems.forEach(item => {
+    // Process each item
+    console.log(`User: ${item.user.id}, Product: ${item.product.id}`);
+    // Add your processing logic here
+  });
+}
+
 
   // from this line is used to testing only  
   async findWithUserAndProducts(userId: number, productId: number): Promise<Wishlist> {
