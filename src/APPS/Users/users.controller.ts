@@ -44,15 +44,8 @@ export class UsersController {
   }
 
 
-  
-  @Update('profile')
-  async updateProfile(@Req() req: Request, @Body() updateUserDto: UpdateUserDto) {
-    const user = req.user;
 
-  }
-
-
-
+ 
 
     // // Admin operations
     // @Get()
