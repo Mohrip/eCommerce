@@ -59,8 +59,11 @@ export class WishlistService {
       await this.wishlistRepository.remove(item);
       return item;
     }));
-    return can3;
+    return can3
   }
+
+ 
+  
 
   async findWishlistItemByProductId(productId: number): Promise<Wishlist[]> {
     return this.wishlistRepository.find({ where: { product: { id: productId}}})
