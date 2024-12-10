@@ -41,4 +41,40 @@ export class WishlistService {
   async viewWishlist(userId: number): Promise<Wishlist[]> {
     return this.wishlistRepository.find({ where: { user: { id: userId } }, relations: ['product'] });
   }
+
+
+  // from this line is used to testing only  
+  async findWithUserAndProducts(userId: number, productId: number): Promise<Wishlist> {
+    return this.wishlistRepository.findOne({ where: { user: { id: userId }, product: { id: productId } } });
+  }
+
+  async findWishlistItem(userId: number, productId: number): Promise<Wishlist>{
+    return this.wishlistRepository.findOne({ where: { user: { id: userId}, product: { id: productId}}})
+  }
+
+  async findAllWishlistItems(userId: number, productId: number ): Promise<Wishlist[]> {
+    const can = this.wishlistRepository.find({ where: { user: { id: userId }, product: { id: productId } } });
+    const can2 = await can;
+    const can3 = await Promise.all(can2.map(async (item) => {
+      await this.wishlistRepository.remove(item);
+      return item;
+    }));
+    return can3;
+  }
+
+  async findWishlistItemByProductId(productId: number): Promise<Wishlist[]> {
+    return this.wishlistRepository.find({ where: { product: { id: productId}}})
+  }
+
+  async findWishlistItemByUserId(userId: number): Promise<Wishlist[]> {
+    return this.wishlistRepository.find({ where: { user: { id: userId}}})
+  }
+
+
+
+
+
+  // end of testing
+
+
 }
